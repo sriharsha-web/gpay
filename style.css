@@ -1,0 +1,647 @@
+/* ============================================
+   Google Pay Maintenance App — Premium Styles
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  --gpay-blue: #4285F4;
+  --gpay-red: #EA4335;
+  --gpay-yellow: #FBBC05;
+  --gpay-green: #34A853;
+  --surface: #ffffff;
+  --surface-dim: #f8f9fa;
+  --on-surface: #202124;
+  --on-surface-variant: #5f6368;
+  --outline: #dadce0;
+  --error: #D93025;
+}
+
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #111111;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ============================================
+   App Container (full screen)
+   ============================================ */
+
+.app-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+
+/* ============================================
+   Splash Screen
+   ============================================ */
+
+.splash-screen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(165deg, #ffffff 0%, #f0f4ff 40%, #e8f0fe 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.splash-screen.fade-out {
+  opacity: 0;
+  transform: scale(1.08);
+  pointer-events: none;
+}
+
+.splash-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.splash-logo-wrapper {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gpay-svg-logo {
+  filter: drop-shadow(0 6px 20px rgba(66, 133, 244, 0.35));
+  animation: logoEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  border-radius: 22px;
+}
+
+@keyframes logoEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.3) rotate(-10deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.splash-logo-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid rgba(66, 133, 244, 0.15);
+  animation: ringPulse 2s ease-in-out infinite;
+}
+
+@keyframes ringPulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.15); opacity: 0; }
+}
+
+.splash-brand {
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  animation: brandFadeIn 0.6s ease 0.4s both;
+}
+
+@keyframes brandFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.brand-google span {
+  font-weight: 600;
+}
+
+.brand-pay {
+  color: var(--on-surface-variant);
+  margin-left: 5px;
+  font-weight: 400;
+}
+
+.splash-tagline {
+  font-size: 13px;
+  color: #9aa0a6;
+  font-weight: 400;
+  animation: brandFadeIn 0.6s ease 0.6s both;
+}
+
+/* Loading Dots */
+.loading-dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 32px;
+  animation: brandFadeIn 0.6s ease 0.8s both;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: dotBounce 1.4s ease-in-out infinite;
+}
+
+.dot-1 { background: var(--gpay-blue); animation-delay: 0s; }
+.dot-2 { background: var(--gpay-red); animation-delay: 0.2s; }
+.dot-3 { background: var(--gpay-yellow); animation-delay: 0.4s; }
+.dot-4 { background: var(--gpay-green); animation-delay: 0.6s; }
+
+@keyframes dotBounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1.2); opacity: 1; }
+}
+
+.splash-bottom {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: brandFadeIn 0.6s ease 1s both;
+}
+
+.splash-secured {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #9aa0a6;
+}
+
+.splash-region {
+  font-size: 13px;
+  color: #80868b;
+  font-weight: 500;
+}
+
+.flag-icon {
+  font-size: 16px;
+}
+
+/* ============================================
+   Plain Background
+   ============================================ */
+
+.app-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+.plain-bg {
+  width: 100%;
+  height: 100%;
+  background: var(--surface);
+}
+
+/* ============================================
+   Maintenance Dialog
+   ============================================ */
+
+.maintenance-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  animation: overlayIn 0.3s ease;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.maintenance-dialog {
+  background: var(--surface);
+  border-radius: 28px;
+  width: 100%;
+  max-width: 320px;
+  box-shadow:
+    0 8px 30px rgba(0,0,0,0.12),
+    0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+  animation: dialogIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes dialogIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Dialog Icon */
+.dialog-icon-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 28px 0 0;
+}
+
+.dialog-icon-bg {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fce8e6, #fdd9d7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  animation: iconIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+
+@keyframes iconIn {
+  from { transform: scale(0); }
+  50% { transform: scale(1.15); }
+  to { transform: scale(1); }
+}
+
+.icon-pulse-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(217, 48, 37, 0.12);
+  animation: pulseRing 2s ease-in-out infinite;
+}
+
+@keyframes pulseRing {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.25); opacity: 0; }
+}
+
+.warning-svg {
+  animation: warningShake 0.6s ease 0.6s;
+}
+
+@keyframes warningShake {
+  0%, 100% { transform: rotate(0); }
+  20% { transform: rotate(-8deg); }
+  40% { transform: rotate(8deg); }
+  60% { transform: rotate(-4deg); }
+  80% { transform: rotate(4deg); }
+}
+
+/* Dialog Body */
+.dialog-body {
+  padding: 20px 24px 24px;
+  text-align: center;
+}
+
+.dialog-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--on-surface);
+  margin-bottom: 10px;
+  animation: textIn 0.4s ease 0.3s both;
+}
+
+@keyframes textIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dialog-message {
+  font-size: 13.5px;
+  color: var(--on-surface-variant);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  animation: textIn 0.4s ease 0.4s both;
+}
+
+.dialog-region-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f1f3f4;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--on-surface);
+  margin-bottom: 14px;
+  animation: textIn 0.4s ease 0.5s both;
+}
+
+.region-flag {
+  font-size: 16px;
+}
+
+.region-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gpay-red);
+  animation: dotPulse 1.5s ease infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.region-status {
+  color: var(--gpay-red);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.dialog-eta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: #80868b;
+  animation: textIn 0.4s ease 0.6s both;
+}
+
+/* Dialog Button */
+.dialog-actions {
+  border-top: 1px solid var(--outline);
+}
+
+.dialog-btn {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: transparent;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gpay-blue);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s ease;
+  letter-spacing: 0.3px;
+}
+
+.dialog-btn:hover {
+  background: rgba(66, 133, 244, 0.04);
+}
+
+.dialog-btn:active {
+  background: rgba(66, 133, 244, 0.1);
+}
+
+/* Material ripple */
+.btn-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(66, 133, 244, 0.25);
+  transform: scale(0);
+  pointer-events: none;
+}
+
+.btn-ripple.active {
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   Closing Animation
+   ============================================ */
+
+.close-animation {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-shrink-circle {
+  width: 100vmax;
+  height: 100vmax;
+  background: #000;
+  border-radius: 50%;
+  animation: shrinkClose 0.5s cubic-bezier(0.4, 0, 1, 1) forwards;
+  transform: scale(0);
+}
+
+@keyframes shrinkClose {
+  from { transform: scale(0); opacity: 0.5; }
+  to { transform: scale(3); opacity: 1; }
+}
+
+/* ============================================
+   Closed (black) Screen
+   ============================================ */
+
+.closed-screen {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  z-index: 250;
+}
+
+/* ============================================
+   Accessibility: reduced motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   Responsive — Small phones (≤360px)
+   ============================================ */
+
+@media (max-width: 360px) {
+  .splash-logo-wrapper {
+    width: 72px;
+    height: 72px;
+  }
+
+  .gpay-svg-logo {
+    width: 64px;
+    height: 64px;
+  }
+
+  .splash-brand {
+    font-size: 22px;
+  }
+
+  .maintenance-overlay {
+    padding: 16px;
+  }
+
+  .maintenance-dialog {
+    border-radius: 22px;
+  }
+
+  .dialog-icon-bg {
+    width: 52px;
+    height: 52px;
+  }
+
+  .warning-svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .dialog-title {
+    font-size: 16px;
+  }
+
+  .dialog-message {
+    font-size: 12.5px;
+  }
+
+  .dialog-body {
+    padding: 16px 18px 18px;
+  }
+}
+
+/* ============================================
+   Responsive — Tablets (≥600px)
+   ============================================ */
+
+@media (min-width: 600px) {
+  .maintenance-dialog {
+    max-width: 380px;
+    border-radius: 32px;
+  }
+
+  .dialog-icon-bg {
+    width: 72px;
+    height: 72px;
+  }
+
+  .warning-svg {
+    width: 44px;
+    height: 44px;
+  }
+
+  .dialog-body {
+    padding: 24px 28px 28px;
+  }
+
+  .dialog-title {
+    font-size: 20px;
+  }
+
+  .dialog-message {
+    font-size: 14.5px;
+  }
+
+  .dialog-btn {
+    padding: 18px;
+    font-size: 16px;
+  }
+
+  .splash-logo-wrapper {
+    width: 110px;
+    height: 110px;
+  }
+
+  .gpay-svg-logo {
+    width: 96px;
+    height: 96px;
+  }
+
+  .splash-brand {
+    font-size: 30px;
+  }
+
+  .splash-tagline {
+    font-size: 14px;
+  }
+}
+
+/* ============================================
+   Responsive — Desktop / Large (≥900px)
+   ============================================ */
+
+@media (min-width: 900px) {
+  .maintenance-dialog {
+    max-width: 420px;
+  }
+
+  .dialog-body {
+    padding: 28px 32px 32px;
+  }
+
+  .dialog-title {
+    font-size: 22px;
+  }
+
+  .dialog-message {
+    font-size: 15px;
+  }
+
+  .splash-logo-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+
+  .gpay-svg-logo {
+    width: 104px;
+    height: 104px;
+  }
+
+  .splash-brand {
+    font-size: 34px;
+  }
+
+  .splash-tagline {
+    font-size: 15px;
+  }
+
+  .loading-dots .dot {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* ============================================
+   Safe areas (notch devices)
+   ============================================ */
+
+@supports (padding-top: env(safe-area-inset-top)) {
+  .splash-bottom {
+    bottom: calc(40px + env(safe-area-inset-bottom));
+  }
+}
